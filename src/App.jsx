@@ -3,14 +3,14 @@ import Home from './Home'
 import './App.css'
 
 function App() {
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const handleLogin = (e) => {
     e.preventDefault()
     // Simulación de login exitoso
-    if (username && password) {
+    if (email && password) {
       setIsLoggedIn(true)
     }
   }
@@ -25,31 +25,30 @@ function App() {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h1>Intranet Alumno</h1>
-          <p>Sistema Único de Matrícula</p>
+          <div className="logo">
+            💰
+          </div>
+          <h1>FinanceControl</h1>
+          <p>Controla tus gastos de forma inteligente</p>
         </div>
         
         <form onSubmit={handleLogin} className="login-form">
           <div className="input-group">
-            <label htmlFor="username">Usuario</label>
             <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="maximo roman"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="correo@ejemplo.com"
               required
             />
           </div>
           
           <div className="input-group">
-            <label htmlFor="password">Contraseña</label>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="······"
+              placeholder="Contraseña"
               required
             />
           </div>
@@ -58,6 +57,10 @@ function App() {
             Iniciar Sesión
           </button>
         </form>
+
+        <div className="login-footer">
+          <p>¿No tienes cuenta? <a href="#">Regístrate</a></p>
+        </div>
       </div>
     </div>
   )

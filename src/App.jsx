@@ -26,9 +26,9 @@ function App() {
       <div className="login-card">
         <div className="login-header">
           <div className="logo">
-            💰
+            // Aquí podrías poner un logo si lo tienes
           </div>
-          <h1>FinanceControl</h1>
+          <h1>Finny</h1>
           <p>Controla tus gastos de forma inteligente</p>
         </div>
         

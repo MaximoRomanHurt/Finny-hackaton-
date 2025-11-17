@@ -1,65 +1,133 @@
-function Home() {
+import { useState, useEffect } from 'react';
+import './App.css';
+import { getDashboardData, getTransactions, addExpense, removeExpense } from './api';
+
+// ---------------- HOME COMPONENT ----------------
+function Home({ setIsLoggedIn }) {
+  const [transactions, setTransactions] = useState([]);
+  const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
+  const [showForm, setShowForm] = useState(false);
+  const [newTransaction, setNewTransaction] = useState({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
+
+  // Cargar datos al inicio
+  useEffect(() => {
+    setTransactions(getTransactions());
+    setDashboard(getDashboardData());
+  }, []);
+
   const handleLogout = () => {
-    // Recargar la página para volver al login
-    window.location.reload()
-  }
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
+
+  const handleAddTransaction = (e) => {
+    e.preventDefault();
+    if (!newTransaction.fecha || !newTransaction.categoria || !newTransaction.monto) return;
+
+    const expenseToAdd = {
+      fecha: newTransaction.fecha,
+      categoria: newTransaction.categoria,
+      monto: Number(newTransaction.monto),
+      tipo: newTransaction.tipo
+    };
+
+    addExpense(expenseToAdd); // Llama a api.js
+    setTransactions(getTransactions());
+    setDashboard(getDashboardData());
+
+    setNewTransaction({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
+    setShowForm(false);
+  };
+
+  const handleDeleteTransaction = (id) => {
+    removeExpense(id); // Llama a api.js
+    setTransactions(getTransactions());
+    setDashboard(getDashboardData());
+  };
 
   return (
     <div className="home-container">
       <div className="home-card">
         <div className="home-header">
-          <div className="logo">
-            💰
-          </div>
-          <h1>Bienvenido a FinanceControl</h1>
+          <div className="logo">💰</div>
+          <h1>Bienvenido a Finny</h1>
           <p>Panel de control de gastos</p>
         </div>
-        
+
         <div className="dashboard">
           <div className="stats-grid">
             <div className="stat-card">
               <h3>Balance Total</h3>
-              <p className="amount">$2,500.00</p>
+              <p className="amount">S/. {dashboard.balanceTotal.toFixed(2)}</p>
             </div>
             <div className="stat-card">
               <h3>Gastos del Mes</h3>
-              <p className="amount expense">$750.00</p>
+              <p className="amount expense">S/. {dashboard.gastosMes.toFixed(2)}</p>
             </div>
             <div className="stat-card">
               <h3>Ingresos</h3>
-              <p className="amount income">$3,250.00</p>
+              <p className="amount income">S/. {dashboard.ingresos.toFixed(2)}</p>
             </div>
           </div>
 
           <div className="recent-transactions">
             <h3>Transacciones Recientes</h3>
             <div className="transaction-list">
-              <div className="transaction-item">
-                <span>Comida</span>
-                <span className="expense">-$45.00</span>
-              </div>
-              <div className="transaction-item">
-                <span>Salario</span>
-                <span className="income">+$1,500.00</span>
-              </div>
-              <div className="transaction-item">
-                <span>Transporte</span>
-                <span className="expense">-$25.00</span>
-              </div>
+              {transactions.map(t => (
+                <div key={t.id} className="transaction-item">
+                  <span>{t.categoria} ({t.fecha})</span>
+                  <span className={t.tipo}>{t.tipo === 'gasto' ? `-S/. ${t.monto}` : `+S/. ${t.monto}`}</span>
+                  <span
+                    style={{ cursor: 'pointer', color: 'gray', marginLeft: '10px' }}
+                    onClick={() => handleDeleteTransaction(t.id)}
+                    onMouseEnter={e => e.target.style.color = 'red'}
+                    onMouseLeave={e => e.target.style.color = 'gray'}
+                  >
+                    🗑️
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="actions">
-            <button className="action-btn primary">Agregar Gasto</button>
-            <button className="action-btn secondary">Agregar Ingreso</button>
-            <button onClick={handleLogout} className="action-btn logout">
-              Cerrar Sesión
-            </button>
+            <button className="action-btn primary" onClick={() => setShowForm(true)}>Agregar Gasto</button>
+            <button className="action-btn logout" onClick={handleLogout}>Cerrar Sesión</button>
           </div>
+
+          {showForm && (
+            <form onSubmit={handleAddTransaction} style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <input
+                type="date"
+                value={newTransaction.fecha}
+                onChange={e => setNewTransaction({ ...newTransaction, fecha: e.target.value })}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Categoría"
+                value={newTransaction.categoria}
+                onChange={e => setNewTransaction({ ...newTransaction, categoria: e.target.value })}
+                required
+              />
+              <input
+                type="number"
+                placeholder="Monto"
+                value={newTransaction.monto}
+                onChange={e => setNewTransaction({ ...newTransaction, monto: e.target.value })}
+                required
+              />
+              <select value={newTransaction.tipo} onChange={e => setNewTransaction({ ...newTransaction, tipo: e.target.value })}>
+                <option value="gasto">Gasto</option>
+                <option value="ingreso">Ingreso</option>
+              </select>
+              <button type="submit" className="action-btn primary">Aceptar</button>
+            </form>
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

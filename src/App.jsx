@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Home from './Home';
-import Register from './Register'; // Asegúrate de tener este componente
 import './App.css';
 import logo from './logo.png';
 
+// ---------------- LOGIN COMPONENT ----------------
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,9 +12,12 @@ function Login({ setIsLoggedIn }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     if (email && password) {
-      setIsLoggedIn(true);      // Actualiza el estado global
-      navigate("/home");         // Navega a Home
+      // Simula login con cualquier email y contraseña
+      setIsLoggedIn(true);
+      localStorage.setItem('isLoggedIn', 'true'); // Guardar login en localStorage
+      navigate("/home");
     }
   };
 
@@ -27,7 +30,7 @@ function Login({ setIsLoggedIn }) {
           </div>
           <p>Controla tus gastos de forma inteligente</p>
         </div>
-        
+
         <form onSubmit={handleLogin} className="login-form">
           <div className="input-group">
             <input
@@ -38,7 +41,7 @@ function Login({ setIsLoggedIn }) {
               required
             />
           </div>
-          
+
           <div className="input-group">
             <input
               type="password"
@@ -48,29 +51,35 @@ function Login({ setIsLoggedIn }) {
               required
             />
           </div>
-          
-          <button type="submit" className="login-button">
-            Iniciar Sesión
-          </button>
-        </form>
 
-        <div className="login-footer">
-          <p>¿No tienes cuenta? <Link to="/register">Regístrate</Link></p>
-        </div>
+          <button type="submit" className="login-button">Iniciar Sesión</button>
+        </form>
       </div>
     </div>
   );
 }
 
+// ---------------- APP PRINCIPAL ----------------
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Al iniciar, leer login del localStorage
+  useEffect(() => {
+    const storedLogin = localStorage.getItem('isLoggedIn');
+    if (storedLogin === 'true') setIsLoggedIn(true);
+  }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={isLoggedIn ? <Home /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route
+          path="/"
+          element={isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
+          path="/home"
+          element={isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+        />
       </Routes>
     </BrowserRouter>
   );

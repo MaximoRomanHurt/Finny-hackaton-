@@ -26,7 +26,7 @@ function App() {
       <div className="login-card">
         <div className="login-header">
           <div className="logo">
-            <img src="/logo.jpg" alt="Finny Logo" />
+            <img src="/logo.jpge" alt="Finny Logo" />
           </div>
           <h1>Finny</h1>
           <p>Controla tus gastos de forma inteligente</p>

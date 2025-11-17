@@ -14,3 +14,17 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Backend (FastAPI)
+
+This project includes a minimal Python backend demo using FastAPI in the `backend/` folder.
+
+Run the backend (from project root):
+
+```powershell
+cd backend; python -m pip install -r requirements.txt; uvicorn main:app --reload --port 8000
+```
+
+During development the Vite dev server proxies `/api` to `http://localhost:8000`, so the frontend can call `/api/login` and `/api/register`.
+
+Note: The backend uses an in-memory store for demo purposes only.

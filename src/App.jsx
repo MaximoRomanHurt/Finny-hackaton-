@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Home from './Home'
 import './App.css'
+import logo from './logo.png';
+
 function App() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -25,7 +27,7 @@ function App() {
       <div className="login-card">
         <div className="login-header">
           <div className="logo">
-            <img src="/logo.png" alt="Finny Logo" />
+            <img src={logo} alt="Finny Logo" />
           </div>
           <h1>Finny</h1>
           <p>Controla tus gastos de forma inteligente</p>

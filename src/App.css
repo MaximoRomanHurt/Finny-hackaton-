@@ -323,6 +323,31 @@ body {
   background: #04CFAD33;
   cursor: pointer;
 }
+/* Estilo para el botón de alternar la visibilidad del sidebar */
+.toggle-sidebar-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #038d85;  /* Color de fondo acorde con el diseño */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;  /* Bordes redondeados igual que los otros botones */
+  transition: background-color 0.2s ease, transform 0.2s ease;  /* Animación suave */
+  z-index: 100;  /* Asegura que el botón quede por encima de otros elementos */
+}
+
+.toggle-sidebar-btn:hover {
+  background-color: #04CFAD;  /* Color de fondo cuando el botón está en hover */
+  transform: translateY(-1px);  /* Pequeña animación al pasar el ratón */
+}
+
+.toggle-sidebar-btn:active {
+  transform: translateY(0);  /* El botón se "aprime" cuando se hace clic */
+}
 
 /* Responsive */
 @media (max-width: 768px) {

@@ -11,6 +11,9 @@ function Home({ setIsLoggedIn }) {
   const [showForm, setShowForm] = useState(false);
   const [newTransaction, setNewTransaction] = useState({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
 
+  // Estado para manejar si el sidebar está visible
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
   // Cargar datos al inicio
   useEffect(() => {
     setTransactions(getTransactions());
@@ -49,8 +52,16 @@ function Home({ setIsLoggedIn }) {
 
   return (
     <div className="home-container">
-      {/* Sidebar component */}
-      <Sidebar setIsLoggedIn={setIsLoggedIn} />
+      {/* Botón para mostrar/ocultar Sidebar */}
+      <button 
+        className="toggle-sidebar-btn" 
+        onClick={() => setSidebarVisible(!sidebarVisible)}
+      >
+        {sidebarVisible ? 'Cerrar Menú' : 'Abrir Menú'}
+      </button>
+
+      {/* Sidebar componente que se muestra o se oculta */}
+      {sidebarVisible && <Sidebar setIsLoggedIn={setIsLoggedIn} />}
 
       {/* Main content */}
       <div className="home-content">

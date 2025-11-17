@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import logo from './logo.png'; // Importa la imagen
 
 function Register({ onSwitchToLogin }) {
   const [formData, setFormData] = useState({
@@ -7,35 +8,32 @@ function Register({ onSwitchToLogin }) {
     email: '',
     password: '',
     confirmPassword: ''
-  })
+  });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   const handleRegister = (e) => {
-    e.preventDefault()
-    // Validación básica
+    e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert('Las contraseñas no coinciden')
-      return
+      alert('Las contraseñas no coinciden');
+      return;
     }
-    // Aquí iría la lógica de registro
-    console.log('Datos de registro:', formData)
-    alert('Registro exitoso! Ahora puedes iniciar sesión.')
-    // Volver al login
-    onSwitchToLogin()
-  }
+    console.log('Datos de registro:', formData);
+    alert('Registro exitoso! Ahora puedes iniciar sesión.');
+    onSwitchToLogin();
+  };
 
   return (
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
           <div className="logo">
-            💰
+            <img src={logo} alt="Finny Logo" style={{ width: "120px", height: "auto" }} />
           </div>
           <h1>Crear Cuenta</h1>
           <p>Únete a FinanceControl</p>
@@ -96,7 +94,7 @@ function Register({ onSwitchToLogin }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;

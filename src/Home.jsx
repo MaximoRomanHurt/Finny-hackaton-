@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { getDashboardData, getTransactions, addExpense, removeExpense } from './api';
+import logo from './logo.png';
 
 // ---------------- HOME COMPONENT ----------------
 function Home({ setIsLoggedIn }) {
@@ -49,7 +50,7 @@ function Home({ setIsLoggedIn }) {
     <div className="home-container">
       <div className="home-card">
         <div className="home-header">
-          <div className="logo">💰</div>
+          <img src={logo} alt="Finny Logo" style={{ width: "120px", height: "auto" }} />
           <h1>Bienvenido a Finny</h1>
           <p>Panel de control de gastos</p>
         </div>

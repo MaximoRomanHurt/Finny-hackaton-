@@ -1,36 +1,54 @@
-import React from 'react';
-import './Sidebar.css'; // Aquí pondrás los estilos del sidebar
-import logo from './logo.png';
+import React from "react";
+import { Home, BarChart2, Calendar, HelpCircle, Settings, LogOut } from "lucide-react";
+import logo from "./logo.png";
+import "./Sidebar.css"; // Puedes seguir usando tu propio archivo CSS
 
 function Sidebar({ setIsLoggedIn }) {
   const handleLogout = () => {
-    // Eliminar la sesión del localStorage
-    localStorage.removeItem('isLoggedIn');
-    
-    // Actualizar el estado en el componente principal para redirigir al login o cambiar el estado
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
-
-    // Si quieres redirigir a la página de inicio de sesión después del logout
-    // (por ejemplo usando react-router)
-    // window.location.href = '/login'; // O usa el hook de history si estás utilizando react-router
   };
 
   return (
-    <div className="sidebar">
-      <div className="logo">
-        <img src={logo} alt="Finny Logo" style={{ width: "120px", height: "auto" }} />
+    <aside className="sidebar shadow-lg">
+      <div className="sidebar-header">
+        <img src={logo} alt="Finny Logo" className="sidebar-logo" />
       </div>
-      <ul className="menu">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Estadísticas</a></li>
-        <li><a href="#">Calendario</a></li>
-        <li><a href="#">Ayuda</a></li>
-        <li><a href="#">Configuración</a></li>
-        <li>
-          <button onClick={handleLogout} className="logout-btn">Cerrar Sesión</button>
-        </li>
-      </ul>
-    </div>
+
+      <nav className="sidebar-menu">
+        <a href="#" className="menu-item">
+          <Home size={20} />
+          <span>Inicio</span>
+        </a>
+
+        <a href="#" className="menu-item">
+          <BarChart2 size={20} />
+          <span>Estadísticas</span>
+        </a>
+
+        <a href="#" className="menu-item">
+          <Calendar size={20} />
+          <span>Calendario</span>
+        </a>
+
+        <a href="#" className="menu-item">
+          <HelpCircle size={20} />
+          <span>Ayuda</span>
+        </a>
+
+        <a href="#" className="menu-item">
+          <Settings size={20} />
+          <span>Configuración</span>
+        </a>
+      </nav>
+
+      <div className="sidebar-footer">
+        <button onClick={handleLogout} className="logout-btn">
+          <LogOut size={20} />
+          <span>Cerrar Sesión</span>
+        </button>
+      </div>
+    </aside>
   );
 }
 

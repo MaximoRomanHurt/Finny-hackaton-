@@ -4,7 +4,6 @@ import { getDashboardData, getTransactions, addExpense, removeExpense } from './
 import logo from './logo.png';
 import Sidebar from './Sidebar';
 
-// ---------------- HOME COMPONENT ----------------
 function Home({ setIsLoggedIn }) {
   const [transactions, setTransactions] = useState([]);
   const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
@@ -16,16 +15,10 @@ function Home({ setIsLoggedIn }) {
     tipo: 'gasto'
   });
 
-  // Cargar datos al inicio
   useEffect(() => {
     setTransactions(getTransactions());
     setDashboard(getDashboardData());
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    setIsLoggedIn(false);
-  };
 
   const handleAddTransaction = (e) => {
     e.preventDefault();
@@ -41,7 +34,6 @@ function Home({ setIsLoggedIn }) {
     addExpense(expenseToAdd);
     setTransactions(getTransactions());
     setDashboard(getDashboardData());
-
     setNewTransaction({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
     setShowForm(false);
   };
@@ -54,11 +46,8 @@ function Home({ setIsLoggedIn }) {
 
   return (
     <div className="home-container">
-      
-      {/* Sidebar siempre montado */}
       <Sidebar setIsLoggedIn={setIsLoggedIn} />
 
-      {/* Contenido principal */}
       <div className="home-content">
         <div className="home-card">
           <div className="home-header">
@@ -92,7 +81,6 @@ function Home({ setIsLoggedIn }) {
                     <span className={t.tipo}>
                       {t.tipo === 'gasto' ? `-S/. ${t.monto}` : `+S/. ${t.monto}`}
                     </span>
-
                     <span
                       style={{ cursor: 'pointer', color: 'gray', marginLeft: '10px' }}
                       onClick={() => handleDeleteTransaction(t.id)}
@@ -108,7 +96,6 @@ function Home({ setIsLoggedIn }) {
 
             <div className="actions">
               <button className="action-btn primary" onClick={() => setShowForm(true)}>Agregar Gasto</button>
-              <button className="action-btn logout" onClick={handleLogout}>Cerrar Sesión</button>
             </div>
 
             {showForm && (

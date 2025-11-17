@@ -1,5 +1,6 @@
 import React from 'react';
 import './Sidebar.css'; // Aquí pondrás los estilos del sidebar
+import logo from './logo.png';
 
 function Sidebar({ setIsLoggedIn }) {
   const handleLogout = () => {
@@ -17,7 +18,7 @@ function Sidebar({ setIsLoggedIn }) {
   return (
     <div className="sidebar">
       <div className="logo">
-        <img src="logo.png" alt="Logo" />
+        <img src={logo} alt="Finny Logo" style={{ width: "120px", height: "auto" }} />
       </div>
       <ul className="menu">
         <li><a href="#">Inicio</a></li>

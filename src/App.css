@@ -34,8 +34,12 @@ body {
 }
 
 .logo {
-  font-size: 48px;
   margin-bottom: 16px;
+}
+
+.logo img {
+  width: 150px; /* ajusta el número a tu gusto */
+  height: auto; /* mantiene proporciones correctas */
 }
 
 .login-header h1 {

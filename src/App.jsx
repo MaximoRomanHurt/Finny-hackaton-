@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import Home from './Home'
 import './App.css'
-import logo from './assets/logo.png';
-
-<img src={logo} alt="Finny Logo" />
-
 function App() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -12,27 +8,10 @@ function App() {
 
   const handleLogin = (e) => {
     e.preventDefault()
-    const doLogin = async () => {
-      try {
-        const res = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        })
-
-        if (res.ok) {
-          setIsLoggedIn(true)
-        } else {
-          const data = await res.json()
-          alert(data.detail || 'Credenciales inválidas')
-        }
-      } catch (err) {
-        console.error(err)
-        alert('Error de red. Asegúrate de que el backend esté corriendo.')
-      }
+    // Simulación de login exitoso
+    if (email && password) {
+      setIsLoggedIn(true)
     }
-
-    doLogin()
   }
 
   // Si está logueado, mostrar la página Home
@@ -46,7 +25,7 @@ function App() {
       <div className="login-card">
         <div className="login-header">
           <div className="logo">
-            <img src={logo} alt="Finny Logo" />
+            <img src="/logo.png" alt="Finny Logo" />
           </div>
           <h1>Finny</h1>
           <p>Controla tus gastos de forma inteligente</p>

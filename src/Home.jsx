@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { getDashboardData, getTransactions, addExpense, removeExpense } from './api';
 import logo from './logo.png';
-import Sidebar from './Sidebar'; // Importamos el Sidebar
+import Sidebar from './Sidebar';
 
 // ---------------- HOME COMPONENT ----------------
 function Home({ setIsLoggedIn }) {
   const [transactions, setTransactions] = useState([]);
   const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
   const [showForm, setShowForm] = useState(false);
-  const [newTransaction, setNewTransaction] = useState({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
-
-  // Estado para manejar si el sidebar está visible
-  const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [newTransaction, setNewTransaction] = useState({
+    fecha: '',
+    categoria: '',
+    monto: '',
+    tipo: 'gasto'
+  });
 
   // Cargar datos al inicio
   useEffect(() => {
@@ -36,7 +38,7 @@ function Home({ setIsLoggedIn }) {
       tipo: newTransaction.tipo
     };
 
-    addExpense(expenseToAdd); // Llama a api.js
+    addExpense(expenseToAdd);
     setTransactions(getTransactions());
     setDashboard(getDashboardData());
 
@@ -45,25 +47,18 @@ function Home({ setIsLoggedIn }) {
   };
 
   const handleDeleteTransaction = (id) => {
-    removeExpense(id); // Llama a api.js
+    removeExpense(id);
     setTransactions(getTransactions());
     setDashboard(getDashboardData());
   };
 
   return (
     <div className="home-container">
-      {/* Botón para mostrar/ocultar Sidebar */}
-      <button 
-        className="toggle-sidebar-btn" 
-        onClick={() => setSidebarVisible(!sidebarVisible)}
-      >
-        {sidebarVisible ? 'Cerrar Menú' : 'Abrir Menú'}
-      </button>
+      
+      {/* Sidebar siempre montado */}
+      <Sidebar setIsLoggedIn={setIsLoggedIn} />
 
-      {/* Sidebar componente que se muestra o se oculta */}
-      {sidebarVisible && <Sidebar setIsLoggedIn={setIsLoggedIn} />}
-
-      {/* Main content */}
+      {/* Contenido principal */}
       <div className="home-content">
         <div className="home-card">
           <div className="home-header">
@@ -94,7 +89,10 @@ function Home({ setIsLoggedIn }) {
                 {transactions.map(t => (
                   <div key={t.id} className="transaction-item">
                     <span>{t.categoria} ({t.fecha})</span>
-                    <span className={t.tipo}>{t.tipo === 'gasto' ? `-S/. ${t.monto}` : `+S/. ${t.monto}`}</span>
+                    <span className={t.tipo}>
+                      {t.tipo === 'gasto' ? `-S/. ${t.monto}` : `+S/. ${t.monto}`}
+                    </span>
+
                     <span
                       style={{ cursor: 'pointer', color: 'gray', marginLeft: '10px' }}
                       onClick={() => handleDeleteTransaction(t.id)}
@@ -114,7 +112,15 @@ function Home({ setIsLoggedIn }) {
             </div>
 
             {showForm && (
-              <form onSubmit={handleAddTransaction} style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <form
+                onSubmit={handleAddTransaction}
+                style={{
+                  marginTop: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px'
+                }}
+              >
                 <input
                   type="date"
                   value={newTransaction.fecha}
@@ -135,10 +141,14 @@ function Home({ setIsLoggedIn }) {
                   onChange={e => setNewTransaction({ ...newTransaction, monto: e.target.value })}
                   required
                 />
-                <select value={newTransaction.tipo} onChange={e => setNewTransaction({ ...newTransaction, tipo: e.target.value })}>
+                <select
+                  value={newTransaction.tipo}
+                  onChange={e => setNewTransaction({ ...newTransaction, tipo: e.target.value })}
+                >
                   <option value="gasto">Gasto</option>
                   <option value="ingreso">Ingreso</option>
                 </select>
+
                 <button type="submit" className="action-btn primary">Aceptar</button>
               </form>
             )}

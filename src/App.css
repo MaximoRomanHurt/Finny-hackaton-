@@ -344,3 +344,15 @@ body {
   .stat-card { padding: 20px; }
   .amount { font-size: 20px; }
 }
+/* hola */
+.home-container {
+  display: flex;
+  height: 100vh;
+  background: #f5f7fa;
+}
+
+.home-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}

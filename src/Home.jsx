@@ -1,21 +1,29 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import Sidebar from './Sidebar';   // <--- IMPORTANTE
+import Sidebar from './Sidebar';
 import { getDashboardData, getTransactions, addExpense, removeExpense } from './api';
 import logo from './logo.png';
 
-// ---------------- HOME COMPONENT ----------------
 function Home({ setIsLoggedIn }) {
   const [transactions, setTransactions] = useState([]);
   const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
   const [showForm, setShowForm] = useState(false);
   const [newTransaction, setNewTransaction] = useState({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
 
-  // Cargar datos al inicio
+  // Cargar datos al inicio — envuelto en función para mejor control
   useEffect(() => {
+    const fetchData = () => {
+      setTransactions(getTransactions());
+      setDashboard(getDashboardData());
+    };
+    fetchData();
+  }, []);
+
+  // Función para refrescar datos después de agregar o eliminar
+  const refreshData = () => {
     setTransactions(getTransactions());
     setDashboard(getDashboardData());
-  }, []);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -30,11 +38,10 @@ function Home({ setIsLoggedIn }) {
       fecha: newTransaction.fecha,
       categoria: newTransaction.categoria,
       monto: Number(newTransaction.monto),
-      tipo: newTransaction.tipo
+      tipo: newTransaction.tipo,
     });
 
-    setTransactions(getTransactions());
-    setDashboard(getDashboardData());
+    refreshData();
 
     setNewTransaction({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
     setShowForm(false);
@@ -42,16 +49,13 @@ function Home({ setIsLoggedIn }) {
 
   const handleDeleteTransaction = (id) => {
     removeExpense(id);
-    setTransactions(getTransactions());
-    setDashboard(getDashboardData());
+    refreshData();
   };
 
   return (
-    <div className="home-container">  
-      {/* --- SIDEBAR INTEGRADO --- */}
+    <div className="home-container">
       <Sidebar setIsLoggedIn={setIsLoggedIn} />
 
-      {/* --- CONTENIDO DE HOME --- */}
       <div className="home-content">
         <div className="home-card">
           <div className="home-header">
@@ -83,7 +87,7 @@ function Home({ setIsLoggedIn }) {
                   <div key={t.id} className="transaction-item">
                     <span>{t.categoria} ({t.fecha})</span>
                     <span className={t.tipo}>
-                      {t.tipo === 'gasto' ? `-S/. ${t.monto}` : `+S/. ${t.monto}`}
+                      {t.tipo === 'gasto' ? `-S/. ${t.monto.toFixed(2)}` : `+S/. ${t.monto.toFixed(2)}`}
                     </span>
 
                     <span
@@ -125,6 +129,8 @@ function Home({ setIsLoggedIn }) {
                   value={newTransaction.monto}
                   onChange={e => setNewTransaction({ ...newTransaction, monto: e.target.value })}
                   required
+                  min="0"
+                  step="0.01"
                 />
                 <select value={newTransaction.tipo} onChange={e => setNewTransaction({ ...newTransaction, tipo: e.target.value })}>
                   <option value="gasto">Gasto</option>

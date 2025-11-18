@@ -19,7 +19,7 @@ function Sidebar({ setIsLoggedIn }) {
 
   return (
     <>
-      <button className="menu-toggle" onClick={toggleMenu}>
+      <button className={`menu-toggle ${isOpen ? 'hidden' : ''}`} onClick={toggleMenu}>
         ☰
       </button>
       

@@ -1,0 +1,130 @@
+.page-container {
+    max-width: 980px;
+    margin: 24px auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(25, 25, 50, 0.06);
+    color: #222;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.page-container h2 {
+    margin: 0 0 12px 0;
+    font-size: 1.4rem;
+    color: #0b3b66;
+}
+
+.page-container label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    color: #333;
+}
+
+.page-container input[type="date"] {
+    margin-top: 6px;
+    padding: 8px 10px;
+    border: 1px solid #e0e6ef;
+    border-radius: 6px;
+    background: #fafbff;
+    font-size: 0.95rem;
+}
+
+.page-container button {
+    padding: 8px 12px;
+    margin-left: 8px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: #0b7cff;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background .12s ease, opacity .12s ease;
+}
+
+.page-container button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.page-container button.secondary {
+    background: #f3f6fb;
+    color: #0b3b66;
+    border-color: #e6eefc;
+}
+
+.page-container .totals {
+    margin-top: 16px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.page-container .totals strong {
+    color: #0b3b66;
+}
+
+.page-container table {
+    width: 100%;
+    margin-top: 16px;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.95rem;
+}
+
+.page-container thead th {
+    text-align: left;
+    padding: 10px 12px;
+    color: #475569;
+    font-weight: 600;
+    border-bottom: 1px solid #eef2f7;
+    background: linear-gradient(180deg, rgba(11,59,102,0.03), transparent);
+}
+
+.page-container tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f3f6fb;
+    vertical-align: middle;
+}
+
+.page-container tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.page-container .amount-positive {
+    color: #0a8a4f;
+    font-weight: 600;
+}
+
+.page-container .amount-negative {
+    color: #de3b3b;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+    .page-container {
+        padding: 12px;
+    }
+    .page-container label {
+        min-width: 100%;
+    }
+    .page-container thead {
+        display: none;
+    }
+    .page-container tbody td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .page-container tbody tr {
+        margin-bottom: 10px;
+        display: block;
+        border: 1px solid #f1f5f9;
+        border-radius: 6px;
+        padding: 8px;
+    }
+}

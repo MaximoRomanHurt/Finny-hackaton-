@@ -263,6 +263,12 @@ body {
   font-weight: 600;
 }
 
+.delete-btn {
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.2s ease;
+}
+
 /* Botones de acción */
 .actions {
   display: flex;

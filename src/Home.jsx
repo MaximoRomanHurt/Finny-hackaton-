@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Sidebar from './Sidebar';
 import { getDashboardData, getTransactions, addExpense, removeExpense } from './api';
@@ -9,28 +9,20 @@ function Home({ setIsLoggedIn }) {
   const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
   const [showForm, setShowForm] = useState(false);
   const [newTransaction, setNewTransaction] = useState({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
+  const [hoverDeleteId, setHoverDeleteId] = useState(null);
 
-  // Cargar datos al inicio — envuelto en función para mejor control
+  // Cargar datos una sola vez al montar el componente
   useEffect(() => {
-    const fetchData = () => {
-      setTransactions(getTransactions());
-      setDashboard(getDashboardData());
-    };
-    fetchData();
-  }, []);
-
-  // Función para refrescar datos después de agregar o eliminar
-  const refreshData = () => {
     setTransactions(getTransactions());
     setDashboard(getDashboardData());
-  };
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false);
-  };
+  }, [setIsLoggedIn]);
 
-  const handleAddTransaction = (e) => {
+  const handleAddTransaction = useCallback((e) => {
     e.preventDefault();
     if (!newTransaction.fecha || !newTransaction.categoria || !newTransaction.monto) return;
 
@@ -41,16 +33,18 @@ function Home({ setIsLoggedIn }) {
       tipo: newTransaction.tipo,
     });
 
-    refreshData();
-
+    // Actualizar estado de una vez
+    setTransactions(getTransactions());
+    setDashboard(getDashboardData());
     setNewTransaction({ fecha: '', categoria: '', monto: '', tipo: 'gasto' });
     setShowForm(false);
-  };
+  }, [newTransaction]);
 
-  const handleDeleteTransaction = (id) => {
+  const handleDeleteTransaction = useCallback((id) => {
     removeExpense(id);
-    refreshData();
-  };
+    setTransactions(getTransactions());
+    setDashboard(getDashboardData());
+  }, []);
 
   return (
     <div className="home-container">
@@ -91,10 +85,11 @@ function Home({ setIsLoggedIn }) {
                     </span>
 
                     <span
-                      style={{ cursor: 'pointer', color: 'gray', marginLeft: '10px' }}
+                      className="delete-btn"
                       onClick={() => handleDeleteTransaction(t.id)}
-                      onMouseEnter={e => e.target.style.color = 'red'}
-                      onMouseLeave={e => e.target.style.color = 'gray'}
+                      onMouseEnter={() => setHoverDeleteId(t.id)}
+                      onMouseLeave={() => setHoverDeleteId(null)}
+                      style={{ color: hoverDeleteId === t.id ? 'red' : 'gray' }}
                     >
                       🗑️
                     </span>

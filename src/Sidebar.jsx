@@ -13,18 +13,25 @@ function Sidebar({ setIsLoggedIn }) {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <button className="menu-toggle" onClick={toggleMenu}>
         ☰
       </button>
       
+      {isOpen && <div className="sidebar-overlay" onClick={closeMenu}></div>}
+      
       <nav className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <button className="close-btn" onClick={closeMenu}>✕</button>
         <ul>
-          <li><a href="#/">Dashboard</a></li>
-          <li><a href="#/transacciones">Transacciones</a></li>
-          <li><a href="#/reportes">Reportes</a></li>
-          <li><a href="#/configuracion">Configuración</a></li>
+          <li><a href="#/" onClick={closeMenu}>Dashboard</a></li>
+          <li><a href="#/transacciones" onClick={closeMenu}>Transacciones</a></li>
+          <li><a href="#/reportes" onClick={closeMenu}>Reportes</a></li>
+          <li><a href="#/configuracion" onClick={closeMenu}>Configuración</a></li>
           <li><button onClick={handleLogout} className="logout-btn">Cerrar Sesión</button></li>
         </ul>
       </nav>

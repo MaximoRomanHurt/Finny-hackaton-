@@ -44,9 +44,9 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <ul>
-        <li>
-          <Link to="/transactions">Transacciones</Link>
-        </li>
+        <li><Link to="/">Inicio</Link></li>
+        <li><Link to="/transactions">Transacciones</Link></li>
+        <!-- Añade más enlaces según tu app -->
       </ul>
     </aside>
   );

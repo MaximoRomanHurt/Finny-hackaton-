@@ -17,11 +17,6 @@ function Home({ setIsLoggedIn }) {
     setDashboard(getDashboardData());
   }, []);
 
-  const handleLogout = useCallback(() => {
-    localStorage.removeItem('isLoggedIn');
-    setIsLoggedIn(false);
-  }, [setIsLoggedIn]);
-
   const handleAddTransaction = useCallback((e) => {
     e.preventDefault();
     if (!newTransaction.fecha || !newTransaction.categoria || !newTransaction.monto) return;
@@ -100,7 +95,6 @@ function Home({ setIsLoggedIn }) {
 
             <div className="actions">
               <button className="action-btn primary" onClick={() => setShowForm(true)}>Agregar Gasto</button>
-              <button className="action-btn logout" onClick={handleLogout}>Cerrar Sesión</button>
             </div>
 
             {showForm && (

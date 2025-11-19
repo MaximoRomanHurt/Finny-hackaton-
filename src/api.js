@@ -1,24 +1,38 @@
 // api.js — Simulación de backend en memoria
 
 // Datos iniciales de demostración
-let dashboardData = {
-  balanceTotal: 2500.00,
-  gastosMes: 750.00,
-  ingresos: 3250.00,
-};
-
 let transactions = [
-  { id: 1, fecha: "2025-11-17", categoria: "Comida", tipo: "gasto", monto: 45.00 },
-  { id: 2, fecha: "2025-11-01", categoria: "Salario", tipo: "ingreso", monto: 1500.00 },
-  { id: 3, fecha: "2025-11-15", categoria: "Transporte", tipo: "gasto", monto: 25.00 },
+  { id: 1, fecha: "2025-11-01", categoria: "Salario", tipo: "ingreso", monto: 2000.00 },
+  { id: 2, fecha: "2025-11-02", categoria: "Comida", tipo: "gasto", monto: 45.50 },
+  { id: 3, fecha: "2025-11-05", categoria: "Transporte", tipo: "gasto", monto: 30.00 },
+  { id: 4, fecha: "2025-11-08", categoria: "Servicios", tipo: "gasto", monto: 120.00 },
+  { id: 5, fecha: "2025-11-10", categoria: "Compras", tipo: "gasto", monto: 200.00 },
+  { id: 6, fecha: "2025-11-15", categoria: "Freelance", tipo: "ingreso", monto: 500.00 },
 ];
 
-// Gastos diarios agrupados por fecha para calendario
-let dailyExpenses = {
-  "2025-11-01": [{ id: 2, categoria: "Salario", tipo: "ingreso", monto: 1500.00 }],
-  "2025-11-15": [{ id: 3, categoria: "Transporte", tipo: "gasto", monto: 25.00 }],
-  "2025-11-17": [{ id: 1, categoria: "Comida", tipo: "gasto", monto: 45.00 }],
+// Calcular totales desde transacciones
+let dashboardData = {
+  balanceTotal: 0,
+  gastosMes: 0,
+  ingresos: 0,
 };
+
+// Actualizar dashboard con datos reales
+transactions.forEach(tx => {
+  if (tx.tipo === "ingreso") {
+    dashboardData.ingresos += tx.monto;
+  } else {
+    dashboardData.gastosMes += tx.monto;
+  }
+});
+dashboardData.balanceTotal = dashboardData.ingresos - dashboardData.gastosMes;
+
+// Gastos diarios agrupados por fecha para calendario
+let dailyExpenses = {};
+transactions.forEach(tx => {
+  if (!dailyExpenses[tx.fecha]) dailyExpenses[tx.fecha] = [];
+  dailyExpenses[tx.fecha].push(tx);
+});
 
 // ----------------- FUNCIONES API SIMULADAS -----------------
 

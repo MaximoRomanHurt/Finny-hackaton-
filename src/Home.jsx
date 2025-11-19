@@ -106,7 +106,7 @@ function Home({ setIsLoggedIn, currency = 'USD', theme, language }) {
             <div className="recent-transactions">
               <h3>Transacciones Recientes</h3>
               <div className="transaction-list">
-                {transactions.map(t => (
+                {transactions.slice(0, 5).map(t => (
                   <div key={t.id} className="transaction-item">
                     <span>{t.categoria} ({t.fecha})</span>
                     <span className={t.tipo}>

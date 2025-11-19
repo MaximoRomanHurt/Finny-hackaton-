@@ -873,9 +873,24 @@ body {
     padding: 12px;
   }
 
+  .recent-transactions {
+    margin-bottom: 16px;
+  }
+
+  .transaction-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .actions {
+    margin-bottom: 16px;
+  }
+
   .economic-tip {
     font-size: 0.85rem;
     padding: 0.75rem;
+    margin-top: 12px;
+    margin-bottom: 0;
   }
 
   .action-btn {
@@ -917,6 +932,8 @@ body {
   .stable-pie {
     height: 220px !important;
     min-height: 220px !important;
+    padding: 0 12px;
+    box-sizing: border-box;
   }
 }
 
@@ -927,5 +944,10 @@ body {
   }
   .stat-card h3 {
     font-size: 12px;
+  }
+  .home-card h2,
+  .home-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
   }
 }

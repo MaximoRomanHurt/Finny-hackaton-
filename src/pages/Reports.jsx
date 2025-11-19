@@ -89,11 +89,13 @@ export default function Reports({ setIsLoggedIn, currency = 'USD', theme, langua
           </div>
 
           {/* Gráfico de pastel */}
-          <div style={{ marginTop: 30 }}>
-            <h3>Distribución de Gastos por Categoría</h3>
-              {categoryData.length > 0 ? (
+          <div style={{ marginTop: 30, marginBottom: 24, display: 'flex', flexDirection: 'column' }}>
+            <h3 style={{ marginBottom: 12 }}>Distribución de Gastos por Categoría</h3>
+            {categoryData.length > 0 ? (
+              <div style={{ padding: '0 8px' }}>
                 <StablePieChart data={categoryData} colors={COLORS} height={300} />
-              ) : (
+              </div>
+            ) : (
               <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px' }}>
                 No hay datos de gastos
               </div>

@@ -11,7 +11,7 @@ function renderLabel({ name, percent }) {
 
 function StablePieChart({ data, colors = [], height = 300 }) {
   return (
-    <div style={{ width: '100%', height, minHeight: height }}>
+    <div className="stable-pie" style={{ width: '100%', height, minHeight: height }}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie

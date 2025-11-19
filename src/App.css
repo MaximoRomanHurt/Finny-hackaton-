@@ -845,3 +845,87 @@ body {
 :root[data-theme='dark'] .info-section strong {
   color: #e2e8f0 !important;
 }
+
+/* Responsive: mobile adjustments */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr; /* stack stat cards */
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .transaction-list .transaction-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .action-btn {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-content, .home-card {
+    padding: 12px;
+  }
+
+  .economic-tip {
+    font-size: 0.85rem;
+    padding: 0.75rem;
+  }
+
+  .action-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Tables -> stacked cards */
+  table {
+    width: 100%;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+  table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border: none;
+  }
+
+  table tbody td:before {
+    content: attr(data-label) " ";
+    font-weight: 600;
+    color: var(--text-secondary, #64748b);
+    margin-right: 8px;
+  }
+
+  .stable-pie {
+    height: 220px !important;
+    min-height: 220px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .stable-pie {
+    height: 180px !important;
+    min-height: 180px !important;
+  }
+  .stat-card h3 {
+    font-size: 12px;
+  }
+}

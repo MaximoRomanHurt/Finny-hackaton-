@@ -3,7 +3,7 @@ import './EconomicTip.css';
 
 const tips = [
   "💡 Presupuesto 50/30/20: 50% necesidades, 30% deseos, 20% ahorros.",
-  "💡 Come en el comedor UNMSM o lleva viandas para ahorrar.",
+  "💡 Come en el comedor UNMSM o lleva tu almuerzo para ahorrar.",
   "💡 Usa transporte universitario o bonos escolares.",
   "💡 Abre una cuenta de ahorro con tasas competitivas.",
   "💡 Busca trabajos part-time o freelance en línea.",

@@ -91,8 +91,9 @@ export default function Reports({ setIsLoggedIn, currency = 'USD', theme, langua
           <div style={{ marginTop: 30 }}>
             <h3>Distribución de Gastos por Categoría</h3>
             {categoryData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
+              <div style={{ width: '100%', height: 300, minHeight: 300 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
                   <Pie
                     data={categoryData}
                     cx="50%"
@@ -109,8 +110,9 @@ export default function Reports({ setIsLoggedIn, currency = 'USD', theme, langua
                   </Pie>
                   <Tooltip formatter={(value) => `${currencySymbols[currency]} ${value.toFixed(2)}`} />
                   <Legend />
-                </PieChart>
-              </ResponsiveContainer>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             ) : (
               <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px' }}>
                 No hay datos de gastos

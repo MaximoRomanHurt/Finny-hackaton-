@@ -39,21 +39,28 @@ function Home({ setIsLoggedIn, currency = 'USD', theme, language }) {
       alert('Debes ingresar una categoría');
       return;
     }
-    if (!newTransaction.monto || newTransaction.monto <= 0) {
+    const amount = Number(newTransaction.monto);
+    if (!amount || amount <= 0) {
       alert('El monto debe ser mayor a 0');
       return;
     }
-    if (newTransaction.monto > 10000) {
-      alert('El monto no puede exceder S/. 10,000');
+    if (amount > 10000) {
+      alert('El monto no puede exceder 10,000');
       return;
     }
 
-    addExpense({
-      fecha: newTransaction.fecha,
-      categoria: newTransaction.categoria,
-      monto: Number(newTransaction.monto),
-      tipo: newTransaction.tipo,
-    });
+    try {
+      addExpense({
+        fecha: newTransaction.fecha,
+        categoria: newTransaction.categoria,
+        monto: amount,
+        tipo: newTransaction.tipo,
+      });
+    } catch (err) {
+      // Mostrar mensaje de error retornado por la 'API' en memoria
+      alert(err.message || 'Error al guardar la transacción');
+      return;
+    }
 
     // Actualizar estado de una vez
     setTransactions(getTransactions());

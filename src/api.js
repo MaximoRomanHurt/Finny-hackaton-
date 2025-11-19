@@ -53,8 +53,17 @@ export function getDailyExpenses(date) {
 
 // Agregar un nuevo gasto o ingreso
 export function addExpense(expense) {
+  // Validaciones de seguridad: monto debe ser número, >0 y <= 10000
+  const monto = Number(expense.monto);
+  if (!isFinite(monto) || monto <= 0) {
+    throw new Error('Monto inválido. Debe ser un número mayor que 0.');
+  }
+  if (monto > 10000) {
+    throw new Error('El monto no puede exceder 10,000.');
+  }
+
   const newId = transactions.length ? transactions[transactions.length - 1].id + 1 : 1;
-  const newExpense = { id: newId, ...expense };
+  const newExpense = { id: newId, ...expense, monto };
 
   transactions.push(newExpense);
 
@@ -63,12 +72,12 @@ export function addExpense(expense) {
   dailyExpenses[expense.fecha].push(newExpense);
 
   // Actualizar dashboard
-  if (expense.tipo === "gasto") {
-    dashboardData.gastosMes += expense.monto;
-    dashboardData.balanceTotal -= expense.monto;
-  } else if (expense.tipo === "ingreso") {
-    dashboardData.ingresos += expense.monto;
-    dashboardData.balanceTotal += expense.monto;
+  if (newExpense.tipo === "gasto") {
+    dashboardData.gastosMes += newExpense.monto;
+    dashboardData.balanceTotal -= newExpense.monto;
+  } else if (newExpense.tipo === "ingreso") {
+    dashboardData.ingresos += newExpense.monto;
+    dashboardData.balanceTotal += newExpense.monto;
   }
 
   return newExpense;

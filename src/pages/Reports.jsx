@@ -124,33 +124,33 @@ export default function Reports({ setIsLoggedIn, currency = 'USD', theme, langua
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 16 }}>
                 <thead>
-                  <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
-                    <th style={{ padding: 12, textAlign: 'left', fontWeight: 600, color: '#1e293b' }}>Categoría</th>
+                  <tr style={{ borderBottom: '2px solid currentColor' }}>
+                    <th style={{ padding: 12, textAlign: 'left', fontWeight: 600 }}>Categoría</th>
                     <th style={{ padding: 12, textAlign: 'right', fontWeight: 600, color: '#04CFAD' }}>Ingresos</th>
                     <th style={{ padding: 12, textAlign: 'right', fontWeight: 600, color: '#ef4444' }}>Egresos</th>
-                    <th style={{ padding: 12, textAlign: 'right', fontWeight: 600, color: '#1e293b' }}>Neto</th>
+                    <th style={{ padding: 12, textAlign: 'right', fontWeight: 600 }}>Neto</th>
                   </tr>
                 </thead>
                 <tbody>
                   {tableData.map((row, idx) => (
-                    <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0' }}>
-                      <td style={{ padding: 12, color: '#1e293b', fontWeight: 500 }}>{row.categoria}</td>
+                    <tr key={idx} style={{ borderBottom: '1px solid currentColor' }}>
+                      <td style={{ padding: 12, fontWeight: 500 }}>{row.categoria}</td>
                       <td style={{ padding: 12, textAlign: 'right', color: '#04CFAD' }}>{currencySymbols[currency]} {row.ingresos.toFixed(2)}</td>
                       <td style={{ padding: 12, textAlign: 'right', color: '#ef4444' }}>{currencySymbols[currency]} {row.egresos.toFixed(2)}</td>
-                      <td style={{ padding: 12, textAlign: 'right', color: '#1e293b', fontWeight: 600 }}>
+                      <td style={{ padding: 12, textAlign: 'right', fontWeight: 600 }}>
                         {currencySymbols[currency]} {(row.ingresos - row.egresos).toFixed(2)}
                       </td>
                     </tr>
                   ))}
-                  <tr style={{ background: '#f8fafc', fontWeight: 700, borderTop: '2px solid #e2e8f0' }}>
-                    <td style={{ padding: 12, color: '#1e293b' }}>TOTAL</td>
+                  <tr style={{ fontWeight: 700, borderTop: '2px solid currentColor' }}>
+                    <td style={{ padding: 12 }}>TOTAL</td>
                     <td style={{ padding: 12, textAlign: 'right', color: '#04CFAD' }}>
                       {currencySymbols[currency]} {Object.values(incomeByCategory).reduce((a, b) => a + b, 0).toFixed(2)}
                     </td>
                     <td style={{ padding: 12, textAlign: 'right', color: '#ef4444' }}>
                       {currencySymbols[currency]} {Object.values(expenseByCategory).reduce((a, b) => a + b, 0).toFixed(2)}
                     </td>
-                    <td style={{ padding: 12, textAlign: 'right', color: '#1e293b' }}>
+                    <td style={{ padding: 12, textAlign: 'right' }}>
                       {currencySymbols[currency]} {dashboard.balanceTotal.toFixed(2)}
                     </td>
                   </tr>

@@ -684,6 +684,10 @@ body {
   color: #f0f9ff !important;
 }
 
+:root[data-theme='light'] .amount {
+  color: #1e293b !important;
+}
+
 :root[data-theme='light'] .amount.income {
   color: #04CFAD !important;
 }
@@ -745,6 +749,10 @@ body {
   color: #f0f9ff !important;
 }
 
+:root[data-theme='dark'] .amount {
+  color: #e2e8f0 !important;
+}
+
 :root[data-theme='dark'] .amount.income {
   color: #04CFAD !important;
 }
@@ -768,6 +776,67 @@ body {
 :root[data-theme='dark'] .setting-card label {
   color: #cbd5e1 !important;
 }
+
+/* Tabla de Reportes - Tema Claro */
+:root[data-theme='light'] table {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+:root[data-theme='light'] table thead tr {
+  background-color: #f1f5f9 !important;
+  color: #1e293b;
+}
+
+:root[data-theme='light'] table thead th {
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+:root[data-theme='light'] table tbody tr {
+  border-color: #cbd5e1 !important;
+  color: #1e293b;
+}
+
+:root[data-theme='light'] table tbody td {
+  color: #1e293b !important;
+}
+
+:root[data-theme='light'] table tbody tr:last-child {
+  background-color: #f1f5f9 !important;
+  color: #1e293b;
+}
+
+/* Tabla de Reportes - Tema Oscuro */
+:root[data-theme='dark'] table {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+:root[data-theme='dark'] table thead tr {
+  background-color: #334155 !important;
+  color: #e2e8f0;
+}
+
+:root[data-theme='dark'] table thead th {
+  color: #e2e8f0 !important;
+  border-color: #475569 !important;
+}
+
+:root[data-theme='dark'] table tbody tr {
+  border-color: #475569 !important;
+  color: #e2e8f0;
+}
+
+:root[data-theme='dark'] table tbody td {
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme='dark'] table tbody tr:last-child {
+  background-color: #334155 !important;
+  color: #e2e8f0;
+}
+
 
 :root[data-theme='dark'] .info-section p {
   color: #cbd5e1 !important;

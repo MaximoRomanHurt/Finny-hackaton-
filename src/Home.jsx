@@ -14,7 +14,7 @@ const currencySymbols = {
   'PEN': 'S/.'
 };
 
-function Home({ setIsLoggedIn, currency = 'USD' }) {
+function Home({ setIsLoggedIn, currency = 'USD', theme, language }) {
   const [transactions, setTransactions] = useState([]);
   const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
   const [showForm, setShowForm] = useState(false);

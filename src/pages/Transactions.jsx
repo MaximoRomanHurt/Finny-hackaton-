@@ -4,7 +4,16 @@ import Sidebar from '../Sidebar';
 import EconomicTip from '../components/EconomicTip';
 import { getTransactions } from '../api.js';
 
-export default function Transactions({ setIsLoggedIn }) {
+const currencySymbols = {
+  'USD': '$',
+  'EUR': '€',
+  'MXN': '$',
+  'ARS': '$',
+  'COP': '$',
+  'PEN': 'S/.'
+};
+
+export default function Transactions({ setIsLoggedIn, currency = 'USD', theme, language }) {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [from, setFrom] = useState('');
@@ -92,15 +101,15 @@ export default function Transactions({ setIsLoggedIn }) {
           <div style={{ marginTop: 20, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 15 }}>
             <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, textAlign: 'center' }}>
               <strong style={{ color: '#64748b', fontSize: 12 }}>Ingresos</strong>
-              <p style={{ color: '#04CFAD', fontSize: 20, margin: '8px 0 0 0' }}>S/. {ingresos.toFixed(2)}</p>
+              <p style={{ color: '#04CFAD', fontSize: 20, margin: '8px 0 0 0' }}>{currencySymbols[currency]} {ingresos.toFixed(2)}</p>
             </div>
             <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, textAlign: 'center' }}>
               <strong style={{ color: '#64748b', fontSize: 12 }}>Egresos</strong>
-              <p style={{ color: '#ef4444', fontSize: 20, margin: '8px 0 0 0' }}>S/. {egresos.toFixed(2)}</p>
+              <p style={{ color: '#ef4444', fontSize: 20, margin: '8px 0 0 0' }}>{currencySymbols[currency]} {egresos.toFixed(2)}</p>
             </div>
             <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, textAlign: 'center' }}>
               <strong style={{ color: '#64748b', fontSize: 12 }}>Restante</strong>
-              <p style={{ color: '#1e293b', fontSize: 20, margin: '8px 0 0 0' }}>S/. {restante.toFixed(2)}</p>
+              <p style={{ color: '#1e293b', fontSize: 20, margin: '8px 0 0 0' }}>{currencySymbols[currency]} {restante.toFixed(2)}</p>
             </div>
           </div>
 
@@ -114,7 +123,7 @@ export default function Transactions({ setIsLoggedIn }) {
                     <div style={{ fontSize: 12, color: '#64748b' }}>{t.fecha}</div>
                   </div>
                   <span className={t.tipo}>
-                    {t.tipo === 'gasto' ? `-S/. ${t.monto.toFixed(2)}` : `+S/. ${t.monto.toFixed(2)}`}
+                    {t.tipo === 'gasto' ? `-${currencySymbols[currency]} ${t.monto.toFixed(2)}` : `+${currencySymbols[currency]} ${t.monto.toFixed(2)}`}
                   </span>
                 </div>
               ))}

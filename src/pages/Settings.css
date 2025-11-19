@@ -1,8 +1,9 @@
 .settings-container {
   display: flex;
   height: 100vh;
-  background-color: #0f172a;
-  color: #e2e8f0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .settings-content {
@@ -10,12 +11,24 @@
   padding: 2rem;
   overflow-y: auto;
   margin-left: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.settings-card {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .settings-content h1 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #038d85;
+  color: var(--accent);
 }
 
 .settings-grid {
@@ -26,13 +39,14 @@
 }
 
 .setting-card {
-  background-color: #1e293b;
+  background-color: var(--bg-secondary);
   padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #334155;
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .setting-card.checkbox {
@@ -43,24 +57,26 @@
 
 .setting-card label {
   font-weight: 600;
-  color: #cbd5e1;
+  color: var(--text-secondary);
   font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 .setting-card select,
 .setting-card input[type="checkbox"] {
   padding: 0.5rem;
-  border: 1px solid #475569;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background-color: #0f172a;
-  color: #e2e8f0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-size: 0.95rem;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .setting-card select:hover,
 .setting-card select:focus {
-  border-color: #038d85;
+  border-color: var(--accent);
   outline: none;
   box-shadow: 0 0 0 2px rgba(3, 141, 133, 0.2);
 }
@@ -69,6 +85,7 @@
   width: 1.2rem;
   height: 1.2rem;
   cursor: pointer;
+  accent-color: var(--accent);
 }
 
 .settings-actions {
@@ -79,7 +96,7 @@
 
 .save-btn {
   padding: 0.75rem 1.5rem;
-  background-color: #038d85;
+  background-color: var(--accent);
   color: white;
   border: none;
   border-radius: 6px;
@@ -90,7 +107,7 @@
 }
 
 .save-btn:hover {
-  background-color: #027d76;
+  background-color: var(--accent-light);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(3, 141, 133, 0.4);
 }
@@ -100,26 +117,29 @@
 }
 
 .info-section {
-  background-color: #1e293b;
+  background-color: var(--bg-secondary);
   padding: 2rem;
   border-radius: 8px;
-  border: 1px solid #334155;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .info-section h3 {
-  color: #038d85;
+  color: var(--accent);
   margin-bottom: 1rem;
   font-size: 1.2rem;
 }
 
 .info-section p {
-  color: #cbd5e1;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 .info-section strong {
-  color: #e2e8f0;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 /* Responsive */

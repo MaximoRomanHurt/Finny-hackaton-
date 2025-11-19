@@ -715,3 +715,64 @@ body {
 :root[data-theme='light'] .info-section strong {
   color: #1e293b !important;
 }
+
+/* Tema oscuro - mejorado */
+:root[data-theme='dark'] h2,
+:root[data-theme='dark'] h3,
+:root[data-theme='dark'] .stat-card h3,
+:root[data-theme='dark'] .recent-transactions h3 {
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme='dark'] .home-header p,
+:root[data-theme='dark'] .login-header p {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme='dark'] .form-container label {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme='dark'] .stat-card h3 {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme='dark'] .transaction-item span:first-child {
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme='dark'] .economic-tip p {
+  color: #f0f9ff !important;
+}
+
+:root[data-theme='dark'] .amount.income {
+  color: #04CFAD !important;
+}
+
+:root[data-theme='dark'] .amount.expense {
+  color: #ef4444 !important;
+}
+
+:root[data-theme='dark'] .input-group label {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme='dark'] .settings-card h1 {
+  color: #e2e8f0 !important;
+}
+
+:root[data-theme='dark'] .settings-card h3 {
+  color: #038d85 !important;
+}
+
+:root[data-theme='dark'] .setting-card label {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme='dark'] .info-section p {
+  color: #cbd5e1 !important;
+}
+
+:root[data-theme='dark'] .info-section strong {
+  color: #e2e8f0 !important;
+}

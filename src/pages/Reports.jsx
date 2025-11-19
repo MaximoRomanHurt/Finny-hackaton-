@@ -7,7 +7,16 @@ import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recha
 
 const COLORS = ['#ef4444', '#04CFAD', '#fbbf24', '#8b5cf6', '#06b6d4', '#10b981'];
 
-export default function Reports({ setIsLoggedIn }) {
+const currencySymbols = {
+  'USD': '$',
+  'EUR': '€',
+  'MXN': '$',
+  'ARS': '$',
+  'COP': '$',
+  'PEN': 'S/.'
+};
+
+export default function Reports({ setIsLoggedIn, currency = 'USD', theme, language }) {
   const [transactions, setTransactions] = useState([]);
   const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
   const [categoryData, setCategoryData] = useState([]);
@@ -66,15 +75,15 @@ export default function Reports({ setIsLoggedIn }) {
           <div style={{ marginTop: 20, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 15 }}>
             <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, textAlign: 'center' }}>
               <strong style={{ color: '#64748b', fontSize: 12 }}>Balance Total</strong>
-              <p style={{ color: '#1e293b', fontSize: 20, margin: '8px 0 0 0' }}>S/. {dashboard.balanceTotal.toFixed(2)}</p>
+              <p style={{ color: '#1e293b', fontSize: 20, margin: '8px 0 0 0' }}>{currencySymbols[currency]} {dashboard.balanceTotal.toFixed(2)}</p>
             </div>
             <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, textAlign: 'center' }}>
               <strong style={{ color: '#64748b', fontSize: 12 }}>Ingresos</strong>
-              <p style={{ color: '#04CFAD', fontSize: 20, margin: '8px 0 0 0' }}>S/. {dashboard.ingresos.toFixed(2)}</p>
+              <p style={{ color: '#04CFAD', fontSize: 20, margin: '8px 0 0 0' }}>{currencySymbols[currency]} {dashboard.ingresos.toFixed(2)}</p>
             </div>
             <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, textAlign: 'center' }}>
               <strong style={{ color: '#64748b', fontSize: 12 }}>Egresos</strong>
-              <p style={{ color: '#ef4444', fontSize: 20, margin: '8px 0 0 0' }}>S/. {dashboard.gastosMes.toFixed(2)}</p>
+              <p style={{ color: '#ef4444', fontSize: 20, margin: '8px 0 0 0' }}>{currencySymbols[currency]} {dashboard.gastosMes.toFixed(2)}</p>
             </div>
           </div>
 
@@ -98,7 +107,7 @@ export default function Reports({ setIsLoggedIn }) {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => `S/. ${value.toFixed(2)}`} />
+                  <Tooltip formatter={(value) => `${currencySymbols[currency]} ${value.toFixed(2)}`} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -126,23 +135,23 @@ export default function Reports({ setIsLoggedIn }) {
                   {tableData.map((row, idx) => (
                     <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0' }}>
                       <td style={{ padding: 12, color: '#1e293b', fontWeight: 500 }}>{row.categoria}</td>
-                      <td style={{ padding: 12, textAlign: 'right', color: '#04CFAD' }}>S/. {row.ingresos.toFixed(2)}</td>
-                      <td style={{ padding: 12, textAlign: 'right', color: '#ef4444' }}>S/. {row.egresos.toFixed(2)}</td>
+                      <td style={{ padding: 12, textAlign: 'right', color: '#04CFAD' }}>{currencySymbols[currency]} {row.ingresos.toFixed(2)}</td>
+                      <td style={{ padding: 12, textAlign: 'right', color: '#ef4444' }}>{currencySymbols[currency]} {row.egresos.toFixed(2)}</td>
                       <td style={{ padding: 12, textAlign: 'right', color: '#1e293b', fontWeight: 600 }}>
-                        S/. {(row.ingresos - row.egresos).toFixed(2)}
+                        {currencySymbols[currency]} {(row.ingresos - row.egresos).toFixed(2)}
                       </td>
                     </tr>
                   ))}
                   <tr style={{ background: '#f8fafc', fontWeight: 700, borderTop: '2px solid #e2e8f0' }}>
                     <td style={{ padding: 12, color: '#1e293b' }}>TOTAL</td>
                     <td style={{ padding: 12, textAlign: 'right', color: '#04CFAD' }}>
-                      S/. {Object.values(incomeByCategory).reduce((a, b) => a + b, 0).toFixed(2)}
+                      {currencySymbols[currency]} {Object.values(incomeByCategory).reduce((a, b) => a + b, 0).toFixed(2)}
                     </td>
                     <td style={{ padding: 12, textAlign: 'right', color: '#ef4444' }}>
-                      S/. {Object.values(expenseByCategory).reduce((a, b) => a + b, 0).toFixed(2)}
+                      {currencySymbols[currency]} {Object.values(expenseByCategory).reduce((a, b) => a + b, 0).toFixed(2)}
                     </td>
                     <td style={{ padding: 12, textAlign: 'right', color: '#1e293b' }}>
-                      S/. {dashboard.balanceTotal.toFixed(2)}
+                      {currencySymbols[currency]} {dashboard.balanceTotal.toFixed(2)}
                     </td>
                   </tr>
                 </tbody>

@@ -1,0 +1,39 @@
+.economic-tip {
+  background: linear-gradient(135deg, #038d85 0%, #027d76 100%);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(3, 141, 133, 0.3);
+  color: white;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  animation: fadeInOut 0.5s ease-in-out;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+.economic-tip p {
+  margin: 0;
+  color: #f0f9ff;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .economic-tip {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+  }
+}

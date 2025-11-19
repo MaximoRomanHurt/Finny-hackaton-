@@ -1,10 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Sidebar from './Sidebar';
+import EconomicTip from './components/EconomicTip';
 import { getDashboardData, getTransactions, addExpense, removeExpense } from './api';
 import logo from './logo.png';
 
-function Home({ setIsLoggedIn }) {
+const currencySymbols = {
+  'USD': '$',
+  'EUR': '€',
+  'MXN': '$',
+  'ARS': '$',
+  'COP': '$',
+  'PEN': 'S/.'
+};
+
+function Home({ setIsLoggedIn, currency = 'USD', theme, language }) {
   const [transactions, setTransactions] = useState([]);
   const [dashboard, setDashboard] = useState({ balanceTotal: 0, gastosMes: 0, ingresos: 0 });
   const [showForm, setShowForm] = useState(false);
@@ -19,14 +29,38 @@ function Home({ setIsLoggedIn }) {
 
   const handleAddTransaction = useCallback((e) => {
     e.preventDefault();
-    if (!newTransaction.fecha || !newTransaction.categoria || !newTransaction.monto) return;
+    
+    // Validaciones
+    if (!newTransaction.fecha.trim()) {
+      alert('Debes seleccionar una fecha');
+      return;
+    }
+    if (!newTransaction.categoria.trim()) {
+      alert('Debes ingresar una categoría');
+      return;
+    }
+    const amount = Number(newTransaction.monto);
+    if (!amount || amount <= 0) {
+      alert('El monto debe ser mayor a 0');
+      return;
+    }
+    if (amount > 10000) {
+      alert('El monto no puede exceder 10,000');
+      return;
+    }
 
-    addExpense({
-      fecha: newTransaction.fecha,
-      categoria: newTransaction.categoria,
-      monto: Number(newTransaction.monto),
-      tipo: newTransaction.tipo,
-    });
+    try {
+      addExpense({
+        fecha: newTransaction.fecha,
+        categoria: newTransaction.categoria,
+        monto: amount,
+        tipo: newTransaction.tipo,
+      });
+    } catch (err) {
+      // Mostrar mensaje de error retornado por la 'API' en memoria
+      alert(err.message || 'Error al guardar la transacción');
+      return;
+    }
 
     // Actualizar estado de una vez
     setTransactions(getTransactions());
@@ -57,15 +91,15 @@ function Home({ setIsLoggedIn }) {
             <div className="stats-grid">
               <div className="stat-card">
                 <h3>Balance Total</h3>
-                <p className="amount">S/. {dashboard.balanceTotal.toFixed(2)}</p>
+                <p className="amount">{currencySymbols[currency]} {dashboard.balanceTotal.toFixed(2)}</p>
               </div>
               <div className="stat-card">
                 <h3>Gastos del Mes</h3>
-                <p className="amount expense">S/. {dashboard.gastosMes.toFixed(2)}</p>
+                <p className="amount expense">{currencySymbols[currency]} {dashboard.gastosMes.toFixed(2)}</p>
               </div>
               <div className="stat-card">
                 <h3>Ingresos</h3>
-                <p className="amount income">S/. {dashboard.ingresos.toFixed(2)}</p>
+                <p className="amount income">{currencySymbols[currency]} {dashboard.ingresos.toFixed(2)}</p>
               </div>
             </div>
 
@@ -76,7 +110,7 @@ function Home({ setIsLoggedIn }) {
                   <div key={t.id} className="transaction-item">
                     <span>{t.categoria} ({t.fecha})</span>
                     <span className={t.tipo}>
-                      {t.tipo === 'gasto' ? `-S/. ${t.monto.toFixed(2)}` : `+S/. ${t.monto.toFixed(2)}`}
+                      {t.tipo === 'gasto' ? `-${currencySymbols[currency]} ${t.monto.toFixed(2)}` : `+${currencySymbols[currency]} ${t.monto.toFixed(2)}`}
                     </span>
 
                     <span
@@ -99,36 +133,46 @@ function Home({ setIsLoggedIn }) {
 
             {showForm && (
               <form onSubmit={handleAddTransaction} className="form-container">
+                <label>Fecha</label>
                 <input
                   type="date"
                   value={newTransaction.fecha}
                   onChange={e => setNewTransaction({ ...newTransaction, fecha: e.target.value })}
                   required
                 />
+                <label>Categoría</label>
                 <input
                   type="text"
-                  placeholder="Categoría"
+                  placeholder="Ej: Comida, Transporte"
                   value={newTransaction.categoria}
                   onChange={e => setNewTransaction({ ...newTransaction, categoria: e.target.value })}
                   required
                 />
+                <label>Monto</label>
                 <input
                   type="number"
-                  placeholder="Monto"
+                  placeholder="Ej: 50.00"
                   value={newTransaction.monto}
                   onChange={e => setNewTransaction({ ...newTransaction, monto: e.target.value })}
                   required
-                  min="0"
+                  min="0.01"
                   step="0.01"
+                  max="10000"
                 />
+                <label>Tipo</label>
                 <select value={newTransaction.tipo} onChange={e => setNewTransaction({ ...newTransaction, tipo: e.target.value })}>
                   <option value="gasto">Gasto</option>
                   <option value="ingreso">Ingreso</option>
                 </select>
-                <button type="submit" className="action-btn primary">Aceptar</button>
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button type="submit" className="action-btn primary" style={{ flex: 1 }}>Guardar</button>
+                  <button type="button" className="action-btn" style={{ flex: 1, background: '#94a3b8' }} onClick={() => { setShowForm(false); setNewTransaction({ fecha: '', categoria: '', monto: '', tipo: 'gasto' }); }}>Cancelar</button>
+                </div>
               </form>
             )}
           </div>
+
+          <EconomicTip />
         </div>
       </div>
     </div>

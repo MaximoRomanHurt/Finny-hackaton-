@@ -655,3 +655,63 @@ body {
   color: #e2e8f0;
 }
 
+/* Mejoras para tema claro */
+:root[data-theme='light'] h2,
+:root[data-theme='light'] h3,
+:root[data-theme='light'] .stat-card h3,
+:root[data-theme='light'] .recent-transactions h3 {
+  color: #1e293b !important;
+}
+
+:root[data-theme='light'] .home-header p,
+:root[data-theme='light'] .login-header p {
+  color: #64748b !important;
+}
+
+:root[data-theme='light'] .form-container label {
+  color: #475569 !important;
+}
+
+:root[data-theme='light'] .stat-card h3 {
+  color: #475569 !important;
+}
+
+:root[data-theme='light'] .transaction-item span:first-child {
+  color: #1e293b !important;
+}
+
+:root[data-theme='light'] .economic-tip p {
+  color: #f0f9ff !important;
+}
+
+:root[data-theme='light'] .amount.income {
+  color: #04CFAD !important;
+}
+
+:root[data-theme='light'] .amount.expense {
+  color: #dc2626 !important;
+}
+
+:root[data-theme='light'] .input-group label {
+  color: #475569 !important;
+}
+
+:root[data-theme='light'] .settings-card h1 {
+  color: #1e293b !important;
+}
+
+:root[data-theme='light'] .settings-card h3 {
+  color: #038d85 !important;
+}
+
+:root[data-theme='light'] .setting-card label {
+  color: #475569 !important;
+}
+
+:root[data-theme='light'] .info-section p {
+  color: #1e293b !important;
+}
+
+:root[data-theme='light'] .info-section strong {
+  color: #1e293b !important;
+}

@@ -12,6 +12,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currency, setCurrency] = useState('USD');
   const [theme, setTheme] = useState('dark');
+  const [language, setLanguage] = useState('es');
 
   // Al iniciar, leer login del localStorage
   useEffect(() => {
@@ -24,6 +25,9 @@ function App() {
 
     const savedTheme = localStorage.getItem('userTheme');
     if (savedTheme) setTheme(savedTheme);
+
+    const savedLanguage = localStorage.getItem('userLanguage');
+    if (savedLanguage) setLanguage(savedLanguage);
   }, []);
 
   // Guardar moneda cuando cambia
@@ -36,8 +40,13 @@ function App() {
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
     localStorage.setItem('userTheme', newTheme);
-    // Aplicar tema al documento
     document.documentElement.setAttribute('data-theme', newTheme);
+  };
+
+  // Guardar idioma cuando cambia
+  const handleLanguageChange = (newLanguage) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('userLanguage', newLanguage);
   };
 
   // Aplicar tema al montar
@@ -56,9 +65,9 @@ function App() {
           path="/home"
           element={isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} currency={currency} theme={theme} /> : <Login setIsLoggedIn={setIsLoggedIn} />}
         />
-        <Route path="/transactions" element={isLoggedIn ? <Transactions setIsLoggedIn={setIsLoggedIn} currency={currency} theme={theme} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/reportes" element={isLoggedIn ? <Reports setIsLoggedIn={setIsLoggedIn} currency={currency} theme={theme} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/configuracion" element={isLoggedIn ? <Settings setIsLoggedIn={setIsLoggedIn} currency={currency} setCurrency={handleCurrencyChange} theme={theme} setTheme={handleThemeChange} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/transactions" element={isLoggedIn ? <Transactions setIsLoggedIn={setIsLoggedIn} currency={currency} theme={theme} language={language} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/reportes" element={isLoggedIn ? <Reports setIsLoggedIn={setIsLoggedIn} currency={currency} theme={theme} language={language} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/configuracion" element={isLoggedIn ? <Settings setIsLoggedIn={setIsLoggedIn} currency={currency} setCurrency={handleCurrencyChange} theme={theme} setTheme={handleThemeChange} language={language} setLanguage={handleLanguageChange} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
     </Router>
   );

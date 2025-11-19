@@ -62,8 +62,6 @@ export default function Reports({ setIsLoggedIn }) {
         <div className="home-card">
           <h2>Reportes y Estadísticas</h2>
 
-          <EconomicTip />
-
           {/* Resumen */}
           <div style={{ marginTop: 20, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 15 }}>
             <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, textAlign: 'center' }}>

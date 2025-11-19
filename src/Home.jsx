@@ -54,8 +54,6 @@ function Home({ setIsLoggedIn }) {
             <p>Panel de control de gastos</p>
           </div>
 
-          <EconomicTip />
-
           <div className="dashboard">
             <div className="stats-grid">
               <div className="stat-card">

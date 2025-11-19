@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './Home';
 import './App.css';
+import Transactions from './pages/Transactions.jsx';
+import Reports from './pages/Reports.jsx';
+import Settings from './pages/Settings.jsx';
 
 // ---------------- APP PRINCIPAL ----------------
 function App() {
@@ -15,7 +18,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route
           path="/"
@@ -25,8 +28,11 @@ function App() {
           path="/home"
           element={isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />}
         />
+        <Route path="/transactions" element={isLoggedIn ? <Transactions setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/reportes" element={isLoggedIn ? <Reports setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/configuracion" element={isLoggedIn ? <Settings setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -4,6 +4,7 @@ import Sidebar from '../Sidebar';
 import EconomicTip from '../components/EconomicTip';
 import { getTransactions, getDashboardData } from '../api.js';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import StablePieChart from '../components/StablePieChart';
 
 const COLORS = ['#ef4444', '#04CFAD', '#fbbf24', '#8b5cf6', '#06b6d4', '#10b981'];
 
@@ -90,30 +91,9 @@ export default function Reports({ setIsLoggedIn, currency = 'USD', theme, langua
           {/* Gráfico de pastel */}
           <div style={{ marginTop: 30 }}>
             <h3>Distribución de Gastos por Categoría</h3>
-            {categoryData.length > 0 ? (
-              <div style={{ width: '100%', height: 300, minHeight: 300 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                  <Pie
-                    data={categoryData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, value }) => `${name}: S/. ${value}`}
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {categoryData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value) => `${currencySymbols[currency]} ${value.toFixed(2)}`} />
-                  <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            ) : (
+              {categoryData.length > 0 ? (
+                <StablePieChart data={categoryData} colors={COLORS} height={300} />
+              ) : (
               <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px' }}>
                 No hay datos de gastos
               </div>

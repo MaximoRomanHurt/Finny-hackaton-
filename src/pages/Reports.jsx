@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import Sidebar from '../Sidebar';
+import EconomicTip from '../components/EconomicTip';
 import { getTransactions, getDashboardData } from '../api.js';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -60,6 +61,8 @@ export default function Reports({ setIsLoggedIn }) {
       <div className="home-content">
         <div className="home-card">
           <h2>Reportes y Estadísticas</h2>
+
+          <EconomicTip />
 
           {/* Resumen */}
           <div style={{ marginTop: 20, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 15 }}>

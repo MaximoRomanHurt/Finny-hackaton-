@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Sidebar from './Sidebar';
+import EconomicTip from './components/EconomicTip';
 import { getDashboardData, getTransactions, addExpense, removeExpense } from './api';
 import logo from './logo.png';
 
@@ -52,6 +53,8 @@ function Home({ setIsLoggedIn }) {
             <h1>Bienvenido a Finny</h1>
             <p>Panel de control de gastos</p>
           </div>
+
+          <EconomicTip />
 
           <div className="dashboard">
             <div className="stats-grid">

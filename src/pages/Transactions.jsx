@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import Sidebar from '../Sidebar';
+import EconomicTip from '../components/EconomicTip';
 import { getTransactions } from '../api.js';
 
 export default function Transactions({ setIsLoggedIn }) {
@@ -66,6 +67,8 @@ export default function Transactions({ setIsLoggedIn }) {
       <div className="home-content">
         <div className="home-card">
           <h2>Historial de Transacciones</h2>
+
+          <EconomicTip />
 
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 12, flexWrap: 'wrap' }}>
             <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

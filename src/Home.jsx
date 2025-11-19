@@ -132,6 +132,8 @@ function Home({ setIsLoggedIn }) {
               </form>
             )}
           </div>
+
+          <EconomicTip />
         </div>
       </div>
     </div>

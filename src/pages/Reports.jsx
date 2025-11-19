@@ -149,6 +149,8 @@ export default function Reports({ setIsLoggedIn }) {
                   </tr>
                 </tbody>
               </table>
+
+              <EconomicTip />
             </div>
           </div>
         </div>

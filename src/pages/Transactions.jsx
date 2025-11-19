@@ -126,6 +126,8 @@ export default function Transactions({ setIsLoggedIn }) {
                 No hay transacciones
               </div>
             )}
+
+            <EconomicTip />
           </div>
         </div>
       </div>

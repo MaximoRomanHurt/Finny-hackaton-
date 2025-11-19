@@ -26,7 +26,7 @@ function App() {
           path="/home"
           element={isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />}
         />
-        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/transactions" element={isLoggedIn ? <Transactions setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
     </Router>
   );

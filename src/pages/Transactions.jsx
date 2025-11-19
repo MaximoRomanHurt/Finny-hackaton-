@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../pages/Login.css';
 import '../App.css';
 import Sidebar from '../Sidebar';
 import { getTransactions } from '../api.js';
@@ -127,28 +126,6 @@ export default function Transactions({ setIsLoggedIn }) {
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-            <th style={{ textAlign: 'left', padding: 8 }}>Fecha</th>
-            <th style={{ textAlign: 'left', padding: 8 }}>Descripción</th>
-            <th style={{ textAlign: 'right', padding: 8 }}>Monto</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.length === 0 && !loading ? (
-            <tr><td colSpan="3" style={{ padding: 12 }}>No hay transacciones para las fechas seleccionadas.</td></tr>
-          ) : items.map((t, i) => (
-            <tr key={t.id ?? i} style={{ borderTop: '1px solid #eee' }}>
-              <td style={{ padding: 8 }}>{t.date ? new Date(t.date).toLocaleDateString() : '-'}</td>
-              <td style={{ padding: 8 }}>{t.description ?? t.concept ?? '-'}</td>
-              <td style={{ padding: 8, textAlign: 'right', color: (Number(t.amount ?? t.monto) < 0) ? 'crimson' : 'green' }}>
-                {(Number(t.amount ?? t.monto) || 0).toFixed(2)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 }
